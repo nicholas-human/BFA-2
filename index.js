@@ -1,8 +1,6 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var TwitterStream = require('twitter-stream-api'),
-    fs = require('fs');
 
 var keys = {
     consumer_key : '0N0Yq0ceGeVRXBA918EtfhK6K',
@@ -11,41 +9,32 @@ var keys = {
     token_secret : 'JzTtGqs7UORQXCFToyXbvrUdRhg4zXFhgUcPshmhB7em7'
 };
 
-var Twitter = new TwitterStream(keys, false);
-Twitter.stream('statuses/filter', {
-    track: 'god'
+var Twitter = require('node-tweet-stream');
+var t = new Twitter(keys)
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+
 });
-
-Twitter.on('statuses', function (obj) {
-    console.log('statuses', obj);
-});
-
-
-
-Twitter.pipe(fs.createWriteStream('tweets.json'));
-
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/tweets.json');
+  res.sendFile(__dirname + '/index.html');
 });
+
+
+
+// Initialize Tweet stream
+t.on('tweet', (tweet) => {
+  io.emit('tweetBlast', tweet.text);
+});
+
+t.track('god');
+
+
 
 io.on('connection', function(socket){
-  console.log('a user connected');
+  console.log('user connected');
+
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-});
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
-  });
-});
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
-});
-
-
-http.listen(3000, function(obj){
-  console.log('listening on *:3000');
 });
