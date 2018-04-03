@@ -37,20 +37,16 @@
   <script>
     $(document).ready(function() {
       var socket = io();
-      var parser = new DOMParser();
-      var MAX_LEN = 6000;
-      var REMOVE_COUNT = 80;
-      var tweetWindow = $('.tweet-window')[0];
+      var CHAR_LIMIT = 3500;
+      var TRIM_COUNT = 250;
+      var tweetWindow = $('.tweet-window');
+      var pPoint = $('#p1')[0]
 
       socket.on('tweetBlast', function(tweet) {
-        var newEl = parser.parseFromString(tweet, 'text/html').body.childNodes[0];
-        if (newEl) {
-          tweetWindow.appendChild(newEl);
-        }
-
-        var len = tweetWindow.innerText.length;
-        if (len > MAX_LEN) {
-          tweetWindow.innerText = tweetWindow.innerText.substring(REMOVE_COUNT, len);
+        var TRIM_COUNT = 100;
+        var length = pPoint.innerText.length - 1;
+        if (pPoint.innerText.length > CHAR_LIMIT) {
+          pPoint.innerText = pPoint.innerText.slice(TRIM_COUNT, length);
         }
       });
     });
