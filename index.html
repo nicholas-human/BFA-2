@@ -30,15 +30,15 @@
   <script>
     $(document).ready(function() {
       var socket = io();
-      var CHAR_LIMIT = 500;
-      var MAX_P = 3;
+      var CHAR_LIMIT = 3500;
+      var TRIM_COUNT = 250;
       var tweetWindow = $('.tweet-window');
       var pPoint = $('#p1')[0]
 
       socket.on('tweetBlast', function(tweet) {
         var TRIM_COUNT = 100;
         var length = pPoint.innerText.length - 1;
-        if (pPoint.innerText.length > 1200) {
+        if (pPoint.innerText.length > CHAR_LIMIT) {
           pPoint.innerText = pPoint.innerText.slice(TRIM_COUNT, length);
         }
         pPoint.innerText = pPoint.innerText + tweet;
