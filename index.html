@@ -4,7 +4,6 @@
     <title>BFA</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-
     <style>
       body {
         background-color: black;
@@ -13,7 +12,17 @@
         height: 100%;
         width: 100%;
       }
+      span {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
 
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+      }
       .tweet-window {
         height: 100%;
         margin-right: 40px;
@@ -23,10 +32,8 @@
   </head>
   <body>
     <div class='tweet-window'>
-      <p id='p1'></p>
     </div>
   </body>
-
   <script>
     $(document).ready(function() {
       var socket = io();
@@ -41,7 +48,6 @@
         if (pPoint.innerText.length > CHAR_LIMIT) {
           pPoint.innerText = pPoint.innerText.slice(TRIM_COUNT, length);
         }
-        pPoint.innerText = pPoint.innerText + tweet;
       });
     });
   </script>

@@ -24,11 +24,13 @@ app.get('/', function(req, res){
 
 // Initialize Tweet stream
 t.on('tweet', (tweet) => {
-  io.emit('tweetBlast', tweet.text);
+  tweet.text = tweet.text.toLowerCase();
+  const text = '<span>' +  _godReplace(tweet.text) + '</span>';
+
+  io.emit('tweetBlast', text);
 });
 
 t.track('god');
-
 
 
 io.on('connection', function(socket){
@@ -38,3 +40,15 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
 });
+
+_godReplace = (str) => {
+  str = str.replace('GOD', '<b>GOD</b>');
+  str = str.replace('god', '<b>GOD</b>');
+  str = str.replace('God', '<b>GOD</b>');
+  str = str.replace('gOd', '<b>GOD</b>');
+  str = str.replace('goD', '<b>GOD</b>');
+  str = str.replace('GOd', '<b>GOD</b>');
+  str = str.replace('gOD', '<b>GOD</b>');
+
+  return str;
+}
