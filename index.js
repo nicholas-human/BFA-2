@@ -26,6 +26,7 @@ app.get('/', function(req, res){
 t.on('tweet', (tweet) => {
   tweet.text = tweet.text.toLowerCase();
   const text = '<span>' +  _godReplace(tweet.text) + '</span>';
+
   io.emit('tweetBlast', text);
 });
 

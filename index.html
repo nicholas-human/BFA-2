@@ -38,8 +38,8 @@
     $(document).ready(function() {
       var socket = io();
       var parser = new DOMParser();
-      var MAX_EL = 100;
-      var REMOVE_COUNT = 3;
+      var MAX_LEN = 6000;
+      var REMOVE_COUNT = 80;
       var tweetWindow = $('.tweet-window')[0];
 
       socket.on('tweetBlast', function(tweet) {
@@ -47,10 +47,10 @@
         if (newEl) {
           tweetWindow.appendChild(newEl);
         }
-        if (tweetWindow.children.length > MAX_EL) {
-          for (var i = 0; i < REMOVE_COUNT; i++) {
-            tweetWindow.removeChild(tweetWindow.children[0]);
-          }
+
+        var len = tweetWindow.innerText.length;
+        if (len > MAX_LEN) {
+          tweetWindow.innerText = tweetWindow.innerText.substring(REMOVE_COUNT, len);
         }
       });
     });
