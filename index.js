@@ -25,7 +25,7 @@ app.get('/', function(req, res){
 // Initialize Tweet stream
 t.on('tweet', (tweet) => {
   tweet.text = tweet.text.toLowerCase();
-  const text = '<p>' +  _godReplace(tweet.text) + '</p>';
+  const text = '<span>' +  _godReplace(tweet.text) + '</span>';
   io.emit('tweetBlast', text);
 });
 
