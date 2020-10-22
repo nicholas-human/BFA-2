@@ -3,10 +3,10 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var keys = {
-    consumer_key : 'I8xKemi6oha9EEUrNM65ARjYW',
-    consumer_secret : 'CCiIqze4yRo2d2dUXt6wLg7jgrn86CMSZN76emRHRFZA3g6DU3',
-    token : '336644862-5WXoYx1hbtt6ou7vitIcaQfugowAJ9XzzNW56mFE',
-    token_secret : '4vdrYv7i3SUPJ44Fw7Of877I3WkQzVLR12B1B1jyiWPjN'
+    consumer_key : '0N0Yq0ceGeVRXBA918EtfhK6K',
+    consumer_secret : 'qbVzKfBLeiBw7He39tI11KHlbCziZkS43rZLjNxHCYs4VqbtdI',
+    token : '848245039125774336-nkTeqhgSofKDzmHQ31TBZSNhJqSGaWY',
+    token_secret : 'JzTtGqs7UORQXCFToyXbvrUdRhg4zXFhgUcPshmhB7em7'
 };
 
 var Twitter = require('node-tweet-stream');
